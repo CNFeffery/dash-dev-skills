@@ -1,46 +1,77 @@
 ---
 name: fetch-fac-component-props-doc
-description: 【高优先级】查询目标fac组件(feffery-antd-components)的官方参数属性(Props)文档与具体功能描述。无论是开发带参数的fac组件，还是回答关于某特定fac组件（如 AntdMenu）有哪些功能与用法时必调。消除模型虚假编造的幻觉问题。
+description: 【高优先级·联动必调】fetch-fac-component-names 确认目标组件后，必须立即调用本 skill 获取该 fac 组件的官方参数（Props）文档，再开始写代码。也适用于用户直接询问某 fac 组件的功能、参数或用法时。严禁用 AI 记忆替代本 skill，必须以文档为准。
 ---
 
 # Fetch FAC Component Properties Document Skill
 
-## 🎯 技能概述 (Overview)
+## 🎯 技能概述
 
-本技能指导 AI Agent 在开发 Dash 应用，或者解答关于 `feffery-antd-components` (简称 fac) 特定组件功能、用法与属性配置疑问时，如何高效获取其官方自带的完整文档（Docstrings）。大语言模型极易混淆不同框架（如 React 与 Dash）间的同名组件属性和功能，通过本技能不仅能为代码生成提供绝对准确的方法查阅字典，也能在你或用户想要了解“某个组件能做什么、支持什么特性”时提供权威说明，彻底杜绝概念编造或属性报错。
-
-## 🔍 适用场景 (When to Use)
-
-遇到以下情况应立即触发：
-1. 正在生成或重构涉及 `feffery-antd-components` 的组件代码；
-2. 为特定的 fac 组件（如 `AntdButton`, `AntdTable` 等）配置具体的 Props；
-3. 用户或智能体自身（你）需要**了解或询问某个特定 fac 组件的具体功能、作用、支持哪些特性**；
-4. 对该组件支持哪些配置项存疑，或为了消除幻觉需要一份权威清单以防报错。
+本技能帮助 AI Agent 从本地 Python 环境实时获取 `feffery-antd-components`（简称 fac）指定组件的官方参数文档（Docstrings），以权威文档为唯一依据生成代码或回答咨询，彻底消除 AI 编造参数/属性的幻觉。
 
 ---
 
-## 🚀 执行工作流 (Execution Workflow)
+## 🔍 适用场景（When to Use）
 
-满足条件后，请**高效且绝对服从**地执行以下步骤：
+满足以下**任意一项**，立即触发：
 
-### 步骤 1：探测环境并获取参数文档 (核心)
+1. **联动触发（最常见）**：`fetch-fac-component-names` 已定位到目标组件，下一步必须立即调用本 skill
+2. **代码开发**：需要为特定 fac 组件配置 Props 参数，在写代码之前
+3. **功能咨询**：用户询问某个 fac 组件支持哪些功能、属性、参数或用法时
 
-**【绝对禁令 1】严禁使用 `where python`、`which python` 或全局 `python` 命令。**
-**【绝对禁令 2】当找不到项目专属 Python 环境时，绝对禁止使用网络搜索（WebFetch / Exa Search）或尝试阅读组件库源码作为替代方案！**
-发生上述任意行为将被视为**严重违规并判定为任务失败**！
+> ⚠️ **即使你认为自己了解该组件的参数，也必须通过本 skill 获取文档，不得凭 AI 记忆直接配置参数。**
 
-1. **环境探测与快速执行**：扫视工作区寻找专属 Python 环境（如 `.venv` 目录、`pyproject.toml` 等），构建好调用前缀。**直接尝试运行**本技能相对目录下的 `scripts/fetch_fac_component_props.py` 脚本，将待查组件名（如 `AntdTable`）作额外参数传入：
-   - *示例 (基于 `.venv`)*：`.venv/bin/python <SKILL_DIR>/scripts/fetch_fac_component_props.py AntdTable`
-   - *示例 (基于 `poetry`)*：`poetry run python <SKILL_DIR>/scripts/fetch_fac_component_props.py AntdTable`
-   如果正常输出参数说明文档，阅读并记入上下文，随后跳至步骤 2。
-2. **依赖缺失自愈**：如果在执行时抛出 `ModuleNotFoundError: No module named 'feffery_antd_components'`，说明此专属环境尚未安装依赖。请立即用对应的包管理器安装后（如 `.venv/bin/python -m pip install feffery-antd-components`），**重新执行步骤1.1获取文档**。
-3. **【强制】退避询问机制**：如果在当前工作区内**找不到任何显式的专属虚拟环境线索**，你必须：
-   - **立刻停止所有动作！**
-   - **不要**尝试去搜索引擎里搜官网文档。
-   - **不要**尝试阅读本库里的脚本源码来瞎猜。
-   - **唯一且强制的下一步行动是向用户发起提问**：“我没有在当前工作区发现显式的 Python 虚拟环境配置（例如 .venv 目录或 pyproject.toml），为了安全获取组件信息，请问项目依赖的 Python 环境路径是什么？（例如某个 conda 环境名称，或是系统上其他位置的 venv 绝对路径）”，**然后等待用户回答**。只有得到明确的环境后，才能继续回去执行获取脚本。
+---
 
-### 步骤 2：应用获取的参数生成代码
+## 🚀 执行工作流
 
-- 核对或获取文档后，只有在文档中明确列出的参数项及符合类型的前提下，才可将其用于 Dash 布局或回调的代码组装。
-- 脚本若提示警告（找不到该组件），表示你虚构或写错了组件名，**必须立刻停止按该名称生成代码**。
+### ⛔ 铁律禁令（违反即判定任务失败）
+
+- **禁令 1**：严禁使用 `python`、`python3`、`where python`、`which python` 等任何形式的系统默认 Python 命令
+- **禁令 2**：严禁在系统全局环境（包括 conda base、系统 site-packages）中安装任何包
+- **禁令 3**：严禁通过网络搜索、WebFetch、查看源码等方式替代本地脚本执行来获取文档
+- **禁令 4**：严禁在未获得用户明确授权的 Python 环境下执行任何命令
+
+---
+
+### 步骤 1：确认 Python 环境路径（强制首步，不可跳过）
+
+**在执行任何命令之前，必须先确认用户提供了 Python 环境路径。**
+
+- 若在本次对话中，用户（或上游 `fetch-fac-component-names` 步骤）已明确提供 Python 环境路径，直接使用，跳至步骤 2。
+- 若尚未获得明确路径，**立即询问用户：**
+
+> "需要您提供项目使用的 Python 解释器路径，才能获取 fac 组件文档，例如：
+> - conda 环境：`conda run -n your_env_name python`
+> - venv 绝对路径：`C:\project\.venv\Scripts\python.exe`"
+
+⚠️ **在用户回复之前，禁止进行任何后续步骤。**
+
+---
+
+### 步骤 2：使用指定环境运行文档获取脚本
+
+使用用户提供的 Python 路径运行本 skill 目录下的脚本 `scripts/fetch_fac_component_props.py`，并将目标组件名作为参数传入（根据本 SKILL.md 的物理路径拼接绝对路径）：
+
+```
+# 示例（按用户提供的环境替换前缀）
+conda run -n myenv python <SKILL_DIR>/scripts/fetch_fac_component_props.py AntdTable
+C:\.venv\Scripts\python.exe <SKILL_DIR>/scripts/fetch_fac_component_props.py AntdTable
+```
+
+- 脚本成功输出参数文档后，读入上下文，进入步骤 3。
+- 若报错 `ModuleNotFoundError: No module named 'feffery_antd_components'`：
+  - 告知用户："目标环境中尚未安装 fac，是否允许我在该环境中执行安装？"
+  - **必须等待用户同意后**，方可执行安装命令（严格使用用户提供的 Python 路径）：
+    ```
+    C:\.venv\Scripts\python.exe -m pip install feffery-antd-components
+    ```
+  - 安装完成后重新执行本步骤。
+- 若脚本输出"未找到该组件"警告：说明组件名有误，**立即停止后续操作**，返回调用 `fetch-fac-component-names` 重新确认正确的组件名。
+
+---
+
+### 步骤 3：严格依照文档生成代码
+
+- 仅使用文档中明确列出的参数名及合法类型，组织 Dash 布局或回调代码。
+- 文档未记载的参数，一律视为不存在，严禁自行补充或猜测。
