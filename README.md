@@ -21,28 +21,11 @@
 
 ## 2 现有skills
 
-<table width="100%" border="1">
-  <thead>
-    <tr>
-      <th align="center">Skill名称</th>
-      <th align="center">功能说明</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td align="center"><a href="https://github.com/CNFeffery/dash-dev-skills/tree/main/skills/dash-native-html-integration">dash-native-html-integration</a></td>
-      <td align="center">规范嵌入原生HTML/JS/CSS等复杂定制化网页功能</td>
-    </tr>
-    <tr>
-      <td align="center"><a href="https://github.com/CNFeffery/dash-dev-skills/tree/main/skills/fetch-fac-component-names">fetch-fac-component-names</a></td>
-      <td align="center">获取有效的fac组件名，避免AI编造不存在的组件</td>
-    </tr>
-    <tr>
-      <td align="center"><a href="https://github.com/CNFeffery/dash-dev-skills/tree/main/skills/fetch-fac-component-props-doc">fetch-fac-component-props-doc</a></td>
-      <td align="center">精准获取指定fac组件的官方参数文档，以供AI查阅</td>
-    </tr>
-  </tbody>
-</table>
+|                                                          Skill名称                                                           |                   功能说明                    |
+| :--------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------: |
+|  [dash-native-html-integration](https://github.com/CNFeffery/dash-dev-skills/tree/main/skills/dash-native-html-integration)  |  规范嵌入原生HTML/JS/CSS等复杂定制化网页功能  |
+|     [fetch-fac-component-names](https://github.com/CNFeffery/dash-dev-skills/tree/main/skills/fetch-fac-component-names)     |  获取有效的fac组件名，避免AI编造不存在的组件  |
+| [fetch-fac-component-props-doc](https://github.com/CNFeffery/dash-dev-skills/tree/main/skills/fetch-fac-component-props-doc) | 精准获取指定fac组件的官方参数文档，以供AI查阅 |
 
 ## 3 安装方式
 
