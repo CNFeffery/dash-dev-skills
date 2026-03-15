@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./imgs/logo.jpg" height="240" alt="Dash Dev Skills Logo" />
+  <img src="./imgs/logo.jpg" height="300" alt="Dash Dev Skills Logo" />
 </p>
 
 <h1 align="center">Dash Dev Skills</h1>
