@@ -4,9 +4,7 @@
 
 <h1 align="center">Dash Dev Skills</h1>
 
-<div align="center">
 适用于Dash应用开发的AI Agent技能库，旨在优化Vibe Coding+Dash应用代码生成质量，减少幻觉、提升效率🚀
-</div>
 
 ## 目录
 
