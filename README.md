@@ -24,6 +24,8 @@
 |  [dash-native-html-integration](https://github.com/CNFeffery/dash-dev-skills/tree/main/skills/dash-native-html-integration)  |  规范嵌入原生HTML/JS/CSS等复杂定制化网页功能  |
 |     [fetch-fac-component-names](https://github.com/CNFeffery/dash-dev-skills/tree/main/skills/fetch-fac-component-names)     |  获取有效的fac组件名，避免AI编造不存在的组件  |
 | [fetch-fac-component-props-doc](https://github.com/CNFeffery/dash-dev-skills/tree/main/skills/fetch-fac-component-props-doc) | 精准获取指定fac组件的官方参数文档，以供AI查阅 |
+|     [fetch-fuc-component-names](https://github.com/CNFeffery/dash-dev-skills/tree/main/skills/fetch-fuc-component-names)     |  获取有效的fuc组件名，避免AI编造不存在的组件  |
+| [fetch-fuc-component-props-doc](https://github.com/CNFeffery/dash-dev-skills/tree/main/skills/fetch-fuc-component-props-doc) | 精准获取指定fuc组件的官方参数文档，以供AI查阅 |
 
 ## 3 安装方式
 
